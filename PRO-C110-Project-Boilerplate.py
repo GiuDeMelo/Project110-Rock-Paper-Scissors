@@ -32,11 +32,19 @@ while True:
 		test_image = np.expand_dims(test_image,axis = 0)
   
   		# Normalize para facilitar o processamento
-		normalised_image = test_image/255.0
+		resixed_image = test_image/255
 
 		# Obtenha previsões do modelo
-		prediction = model.predict(normalised_image)
-		print("Previsão: ",prediction)
+		predictions = model.predict(resixed_image)
+		print("Previsão: ",predictions)
+  
+  		# Convertendo os dados do array para percentual de confiança
+		rock = int(predictions[0][0]*100)
+		paper = int(predictions[0][1]*100)
+		scissor = int(predictions[0][2]*100)
+  
+  		# Imprimindo o percentual de confiança
+		print(f"Pedra: {rock} %, Papel: {paper} %, Tesoura: {scissor} %")
   
 		# Exibindo os quadros capturados
 		cv2.imshow('feed' , frame)
